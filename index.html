@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>OZOX ULTIMATE</title><style>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#000;color:#0f0;font-family:'Courier New',monospace;overflow:hidden;height:100dvh;display:flex;flex-direction:column}
+#output{flex:1;padding:15px;overflow-y:auto;font-size:15px;line-height:1.6}
+#inputline{display:flex;align-items:center;padding:10px;background:#000;position:fixed;bottom:0;width:100%;border-top:2px solid #0f0}
+#prompt{color:#0f0;margin-right:8px;font-weight:bold}
+#input{background:transparent;border:none;color:#0f0;font-size:16px;flex:1;outline:none}
+.blink{animation:blink 1s infinite}@keyframes blink{50%{opacity:0}}
+.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#000;border:5px solid #0f0;padding:30px;border-radius:25px;text-align:center;z-index:999;box-shadow:0 0 100px #0f0;display:none;width:90%;max-width:400px}
+.logo-target{width:80px;height:80px;border-radius:50%;margin:10px auto;box-shadow:0 0 30px #0f0}
+</style></head><body ontouchstart="">
+
+<div id="output">
+<span style="color:#f00;font-size:20px">
+╔══════════════════════════════════╗
+║       OZOX ULTIMATE v13          ║
+║    TARGETED E-WALLET BREACH      ║
+╚══════════════════════════════════╝
+</span><br><br>
+[+] All Indonesian e-wallet servers connected<br>
+[+] Ready for targeted attack<br><br>
+<span style="color:#ff0066">Ketik: ozox dana [nama target]</span><br><br>
+<span class="blink">$ </span>
+</div>
+
+<div id="inputline">
+  <span id="prompt">$ </span>
+  <input type="text" id="input" autofocus placeholder="ozox dana Andini">
+</div>
+
+<div class="popup" id="popup">
+  <img id="logo" class="logo-target">
+  <div style="font-size:8vw;color:#0f0;margin:10px 0" id="nama"></div>
+  <div style="font-size:6vw;color:#ff0" id="saldo"></div>
+  <div style="margin:20px 0;font-size:7vw;color:#0f0">→ Transfer ke kamu: <b id="transfer"></b></div>
+  <button onclick="document.getElementById('popup').style.display='none'" style="background:#0f0;color:#000;padding:15px 40px;border:none;border-radius:20px;font-weight:bold;margin-top:20px">SULTAN</button>
+</div>
+
+<script>
+const output=document.getElementById('output'),input=document.getElementById('input');
+const popup=document.getElementById('popup'),logo=document.getElementById('logo'),nama=document.getElementById('nama'),saldo=document.getElementById('saldo'),transfer=document.getElementById('transfer');
+
+function vibe(){if('vibrate'in navigator)navigator.vibrate([500,300,500,300,1000])}
+
+input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();
+const cmd=input.value.trim();
+if(!cmd.startsWith('ozox ')){output.innerHTML+=`<span style="color:#ff0066">Gunakan: ozox [dana/ovo/gopay] [nama target]</span><br>`;}
+else{
+  const parts=cmd.split(' ');
+  const wallet=parts[1].toLowerCase();
+  const target=parts.slice(2).join(' ') || 'Target';
+
+  vibe();
+  output.innerHTML+=`$ ${cmd}<br>[+] Scanning ${target}...<br>[+] ${wallet.toUpperCase()} account found!<br>[+] Bypassing 2FA...<br>[+] Success!<br><br>`;
+
+  // Logo otomatis sesuai wallet
+  if(wallet.includes('dana')) logo.src="https://upload.wikimedia.org/wikipedia/id/7/7f/DANA_Indonesia_logo.png";
+  else if(wallet.includes('ovo')) logo.src="https://upload.wikimedia.org/wikipedia/id/thumb/5/57/OVO_%28payment%29_logo.svg/512px-OVO_%28payment%29_logo.svg.png";
+  else if(wallet.includes('gopay')) logo.src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/GoPay_Logo.svg/512px-GoPay_Logo.svg.png";
+  else if(wallet.includes('shopee')) logo.src="https://upload.wikimedia.org/wikipedia/id/thumb/5/51/ShopeePay_logo.svg/512px-ShopeePay_logo.svg.png";
+  else logo.src="https://upload.wikimedia.org/wikipedia/commons/8/8b/LinkAja_logo.png";
+
+  nama.textContent = target.toUpperCase();
+  const saldoAsli = Math.floor(Math.random()*900000000) + 10000000;
+  const ambil = Math.floor(saldoAsli * 0.95);
+  saldo.innerHTML = `Saldo target:<br><b>Rp ${saldoAsli.toLocaleString('id-ID')}</b>`;
+  transfer.textContent = `Rp ${ambil.toLocaleString('id-ID')}`;
+  popup.style.display='block';
+}
+
+output.innerHTML+='<span class="blink">$ </span>';
+output.scrollTop=output.scrollHeight;
+input.value='';
+}});
+
+input.focus();document.addEventListener('click',()=>input.focus());
+</script>
+</body></html>
